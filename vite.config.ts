@@ -15,4 +15,22 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Pre-bundle UI deps at startup so the dev server never re-optimizes mid-session
+    // (a late re-optimization mixes React copies and crashes with "resolveDispatcher() is null").
+    optimizeDeps: {
+      include: [
+        "@radix-ui/react-dialog",
+        "@radix-ui/react-dropdown-menu",
+        "@radix-ui/react-label",
+        "@radix-ui/react-slot",
+        "class-variance-authority",
+        "clsx",
+        "lucide-react",
+        "sonner",
+        "tailwind-merge",
+        "zod",
+      ],
+    },
+  },
 });
