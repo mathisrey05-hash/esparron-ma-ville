@@ -28,3 +28,10 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+## Project rules
+
+- Public content is read through functions in `src/lib/site-data.ts` whose shapes mirror the planned DB tables; why: swapping to the database later only replaces those readers.
+- Unknown official facts use the `TODO()` helper and render via `<Todo>`; sample news/events carry `isExample`; why: never invent official municipal information.
+- Each association has its own page via `src/routes/associations.$slug.tsx` keyed by slug (`bouliste`, `chasseurs`, `comite`); why: one template, permissions will later be scoped per slug.
+- Validation schemas live in `src/lib/*-schema.ts` so client forms and future server functions share them; why: same rules on both sides.

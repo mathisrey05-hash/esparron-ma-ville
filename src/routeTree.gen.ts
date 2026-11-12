@@ -10,33 +10,141 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ConnexionRouteImport } from './routes/connexion'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as LaCommuneRouteImport } from './routes/la-commune'
+import { Route as MairieRouteImport } from './routes/mairie'
+import { Route as ActualitesIndexRouteImport } from './routes/actualites.index'
+import { Route as ActualitesSlugRouteImport } from './routes/actualites.$slug'
+import { Route as AssociationsIndexRouteImport } from './routes/associations.index'
+import { Route as AssociationsSlugRouteImport } from './routes/associations.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConnexionRoute = ConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LaCommuneRoute = LaCommuneRouteImport.update({
+  id: '/la-commune',
+  path: '/la-commune',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MairieRoute = MairieRouteImport.update({
+  id: '/mairie',
+  path: '/mairie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActualitesIndexRoute = ActualitesIndexRouteImport.update({
+  id: '/actualites/',
+  path: '/actualites/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActualitesSlugRoute = ActualitesSlugRouteImport.update({
+  id: '/actualites/$slug',
+  path: '/actualites/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssociationsIndexRoute = AssociationsIndexRouteImport.update({
+  id: '/associations/',
+  path: '/associations/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AssociationsSlugRoute = AssociationsSlugRouteImport.update({
+  id: '/associations/$slug',
+  path: '/associations/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/connexion': typeof ConnexionRoute
+  '/contact': typeof ContactRoute
+  '/la-commune': typeof LaCommuneRoute
+  '/mairie': typeof MairieRoute
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/associations/$slug': typeof AssociationsSlugRoute
+  '/actualites/': typeof ActualitesIndexRoute
+  '/associations/': typeof AssociationsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/connexion': typeof ConnexionRoute
+  '/contact': typeof ContactRoute
+  '/la-commune': typeof LaCommuneRoute
+  '/mairie': typeof MairieRoute
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/associations/$slug': typeof AssociationsSlugRoute
+  '/actualites': typeof ActualitesIndexRoute
+  '/associations': typeof AssociationsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/connexion': typeof ConnexionRoute
+  '/contact': typeof ContactRoute
+  '/la-commune': typeof LaCommuneRoute
+  '/mairie': typeof MairieRoute
+  '/actualites/$slug': typeof ActualitesSlugRoute
+  '/associations/$slug': typeof AssociationsSlugRoute
+  '/actualites/': typeof ActualitesIndexRoute
+  '/associations/': typeof AssociationsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/connexion'
+    | '/contact'
+    | '/la-commune'
+    | '/mairie'
+    | '/actualites/$slug'
+    | '/associations/$slug'
+    | '/actualites/'
+    | '/associations/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/connexion'
+    | '/contact'
+    | '/la-commune'
+    | '/mairie'
+    | '/actualites/$slug'
+    | '/associations/$slug'
+    | '/actualites'
+    | '/associations'
+  id:
+    | '__root__'
+    | '/'
+    | '/connexion'
+    | '/contact'
+    | '/la-commune'
+    | '/mairie'
+    | '/actualites/$slug'
+    | '/associations/$slug'
+    | '/actualites/'
+    | '/associations/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ConnexionRoute: typeof ConnexionRoute
+  ContactRoute: typeof ContactRoute
+  LaCommuneRoute: typeof LaCommuneRoute
+  MairieRoute: typeof MairieRoute
+  ActualitesSlugRoute: typeof ActualitesSlugRoute
+  AssociationsSlugRoute: typeof AssociationsSlugRoute
+  ActualitesIndexRoute: typeof ActualitesIndexRoute
+  AssociationsIndexRoute: typeof AssociationsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +156,75 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/connexion': {
+      id: '/connexion'
+      path: '/connexion'
+      fullPath: '/connexion'
+      preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/la-commune': {
+      id: '/la-commune'
+      path: '/la-commune'
+      fullPath: '/la-commune'
+      preLoaderRoute: typeof LaCommuneRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mairie': {
+      id: '/mairie'
+      path: '/mairie'
+      fullPath: '/mairie'
+      preLoaderRoute: typeof MairieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actualites/': {
+      id: '/actualites/'
+      path: '/actualites'
+      fullPath: '/actualites/'
+      preLoaderRoute: typeof ActualitesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/actualites/$slug': {
+      id: '/actualites/$slug'
+      path: '/actualites/$slug'
+      fullPath: '/actualites/$slug'
+      preLoaderRoute: typeof ActualitesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/associations/': {
+      id: '/associations/'
+      path: '/associations'
+      fullPath: '/associations/'
+      preLoaderRoute: typeof AssociationsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/associations/$slug': {
+      id: '/associations/$slug'
+      path: '/associations/$slug'
+      fullPath: '/associations/$slug'
+      preLoaderRoute: typeof AssociationsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ConnexionRoute: ConnexionRoute,
+  ContactRoute: ContactRoute,
+  LaCommuneRoute: LaCommuneRoute,
+  MairieRoute: MairieRoute,
+  ActualitesSlugRoute: ActualitesSlugRoute,
+  AssociationsSlugRoute: AssociationsSlugRoute,
+  ActualitesIndexRoute: ActualitesIndexRoute,
+  AssociationsIndexRoute: AssociationsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
