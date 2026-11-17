@@ -35,3 +35,4 @@ use the editor.
 - Unknown official facts use the `TODO()` helper and render via `<Todo>`; sample news/events carry `isExample`; why: never invent official municipal information.
 - Each association has its own page via `src/routes/associations.$slug.tsx` keyed by slug (`bouliste`, `chasseurs`, `comite`); why: one template, permissions will later be scoped per slug.
 - Validation schemas live in `src/lib/*-schema.ts` so client forms and future server functions share them; why: same rules on both sides.
+- Self-hosting on a Linux VM uses `build:vm` (Nitro `node-server` preset) and runs `.output/server/index.mjs` behind the existing web server; why: the default build targets Cloudflare and does not run on a plain VM. Keep `docs/HEBERGEMENT-VM.md` in sync when env vars or build steps change.

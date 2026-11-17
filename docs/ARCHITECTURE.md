@@ -38,3 +38,7 @@ bun install
 bun run dev     # http://localhost:8080
 bun run test    # lance les tests
 ```
+
+## Héberger le site sur un serveur Linux (à côté de WordPress)
+
+Voir [`HEBERGEMENT-VM.md`](./HEBERGEMENT-VM.md) : `npm run build:vm` puis `npm run start:vm`.

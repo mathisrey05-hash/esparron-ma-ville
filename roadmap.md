@@ -1,6 +1,7 @@
 # Feuille de route — Site de la mairie d'Esparron
 
 - [x] Étape 1 — Structure du site, design responsive et pages publiques (contenus temporaires)
+- [x] Guide d'hébergement sur la VM (à côté de WordPress) — `docs/HEBERGEMENT-VM.md`
 - [ ] Étape 2 — Connecter la base de données (Lovable Cloud) : tables profiles, associations, articles, events, municipal_content, audit_logs + messages de contact
 - [ ] Étape 3 — Authentification : connexion, déconnexion, mot de passe oublié, inscription fermée au public
 - [ ] Étape 4 — Rôles (table séparée) et politiques RLS strictes (présidents limités à leur association)
@@ -8,3 +9,4 @@
 - [ ] Étape 6 — Tableau de bord administrateur (pages, actualités, événements, associations, images, comptes, rôles)
 - [ ] Étape 7 — Tableaux de bord simplifiés employé municipal et présidents d'association
 - [ ] Étape 8 — Tests de chaque rôle avec des comptes différents
+- [ ] Compléter le guide VM avec les réglages de la base de données (après l'étape 2)
