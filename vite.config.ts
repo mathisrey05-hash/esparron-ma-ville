@@ -9,11 +9,21 @@
 // You can pass additional config via defineConfig({ vite: { ... }, etc... }) if needed.
 import { defineConfig } from "@lovable.dev/vite-tanstack-config";
 
+// `npm run build:apache` sets STATIC_EXPORT=1: every page is rendered to its own index.html
+// so a plain Apache server can serve the site without Node.js.
+const staticExport = process.env.STATIC_EXPORT === "1";
+
 export default defineConfig({
   tanstackStart: {
     // Redirect TanStack Start's bundled server entry to src/server.ts (our SSR error wrapper).
     // nitro/vite builds from this
     server: { entry: "server" },
+    ...(staticExport
+      ? {
+          prerender: { enabled: true, crawlLinks: true, failOnError: true },
+          pages: [{ path: "/404", prerender: { enabled: true, outputPath: "/404.html" } }],
+        }
+      : {}),
   },
   vite: {
     // Pre-bundle UI deps at startup so the dev server never re-optimizes mid-session
