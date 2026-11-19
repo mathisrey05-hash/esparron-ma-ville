@@ -15,6 +15,73 @@ Navigateur ──► Apache ou Nginx (port 80/443, déjà utilisé par WordPress
 
 ---
 
+## Option simple : pages HTML pour Apache, sans Node.js
+
+Si vous voulez seulement déposer des fichiers (avec un `index.html`) dans Apache, utilisez
+la version « pages HTML » du site. Chaque page devient un fichier `index.html` :
+
+```text
+site-statique/
+├── index.html                 (accueil)
+├── la-commune/index.html
+├── mairie/index.html
+├── actualites/index.html      (+ un dossier par article)
+├── associations/index.html    (+ bouliste/, chasseurs/, comite/)
+├── contact/index.html
+├── connexion/index.html
+├── 404.html                   (page « introuvable »)
+├── .htaccess                  (réglages Apache, fichier caché)
+└── assets/                    (images, styles, scripts)
+```
+
+> Testé : les 17 pages servies par Apache 2.4 (adresses avec et sans `/` final, page 404,
+> images, menu, menu mobile, filtres des actualités, contrôle du formulaire de contact).
+
+**Fabriquer le dossier** (sur votre ordinateur ou la VM, Node.js 20+ nécessaire seulement ici) :
+
+```bash
+npm install
+npm run build:static      # crée le dossier site-statique/
+```
+
+**Le déposer sur la VM** (le site doit être à la **racine** d'une adresse, pas dans un sous-dossier) :
+
+```bash
+sudo mkdir -p /var/www/esparron-html
+sudo cp -r site-statique/. /var/www/esparron-html/     # le « . » copie aussi .htaccess
+sudo chown -R www-data:www-data /var/www/esparron-html
+sudo a2enmod rewrite
+```
+
+Fichier `/etc/apache2/sites-available/esparron.conf` :
+
+```apache
+<VirtualHost *:80>
+    ServerName esparron.sondomaine.fr
+    DocumentRoot /var/www/esparron-html
+    <Directory /var/www/esparron-html>
+        AllowOverride All
+        Require all granted
+    </Directory>
+</VirtualHost>
+```
+
+```bash
+sudo a2ensite esparron
+sudo apachectl configtest && sudo systemctl reload apache2
+```
+
+Sans nom de domaine, sur le réseau local : remplacez `*:80` par `*:8081`, ajoutez la ligne
+`Listen 8081` dans `/etc/apache2/ports.conf`, rechargez Apache et ouvrez `http://IP-DE-LA-VM:8081`.
+WordPress reste sur le port 80, inchangé.
+
+**Limites :** le formulaire de contact et l'Espace personnel restent inactifs dans cette version.
+Une modification du site n'apparaît qu'après avoir refait `npm run build:static` et recopié le
+dossier. Quand la base de données et les tableaux de bord seront ajoutés, il faudra passer à la
+méthode avec Node.js ci-dessous.
+
+---
+
 ## 0. Ce qu'il faut demander à votre ami
 
 - Un accès **SSH** à la VM avec un compte qui peut utiliser `sudo`.
@@ -198,3 +265,5 @@ La clé secrète (`service_role`) ne doit jamais être mise dans ce fichier côt
 | Page de WordPress à la place du site | Le `ServerName` / `server_name` correspond-il exactement au sous-domaine ? |
 | `EADDRINUSE` dans les messages | Le port est déjà pris : changez `PORT` |
 | La construction échoue | `node --version` doit être 20 ou plus |
+| Pages HTML : `/mairie` affiche « Not Found » | `.htaccess` a-t-il été copié ? `AllowOverride All` et `a2enmod rewrite` sont-ils actifs ? |
+| Pages HTML : site sans images ni couleurs | Le site est dans un sous-dossier : il doit être à la racine du `DocumentRoot` |
